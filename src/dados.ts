@@ -83,7 +83,7 @@ export const projeto: Projeto = {
   curso: '[CURSO]',
   instituicao: '[INSTITUIÇÃO]',
   dataApresentacao: '[DD/MM/AAAA]',
-  urlBase: '',
+  urlBase: 'https://artmorais77.github.io/horta-escolar-conectada/',
 }
 
 export const objetivo =
