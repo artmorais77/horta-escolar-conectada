@@ -77,11 +77,11 @@ export interface Hortalica {
 // ------------------------------------------------------------
 
 export const projeto: Projeto = {
-  nome: '[NOME DO PROJETO]',
+  nome: 'HORTA ESCOLAR CONECTADA',
   integrantes: ['[NOMES DOS INTEGRANTES]'],
-  disciplina: '[DISCIPLINA]',
-  curso: '[CURSO]',
-  instituicao: '[INSTITUIÇÃO]',
+  disciplina: 'INTEGRAÇÃO, ENSINO, PRÁTICA E COMUNIDADE',
+  curso: 'TECNOLOGIA EM GESTÃO DO AGRONEGÓCIO',
+  instituicao: 'FACULDADE VALE DO AÇO',
   dataApresentacao: '[DD/MM/AAAA]',
   urlBase: 'https://artmorais77.github.io/horta-escolar-conectada/',
 }
