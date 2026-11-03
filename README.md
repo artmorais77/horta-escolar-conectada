@@ -34,10 +34,10 @@ npm run preview # abre em http://localhost:4173/horta/
 
 **Tudo o que precisa ser preenchido fica em `src/dados.ts`.** Não é preciso mexer em mais nada.
 
-- **Projeto:** nome, integrantes, disciplina, curso, instituição e data da apresentação.
+- **Projeto:** nome, disciplina, curso e instituição.
 - **Datas:** escrevam no formato `DD/MM/AAAA` (ex.: `'15/09/2026'`). Enquanto estiver `'[DD/MM/AAAA]'`, o site mostra o espaço reservado.
 - **`dataPlantio`** de cada hortaliça: com ela o site calcula sozinho os "dias de cultivo" e a barra de progresso (pelo horário de Brasília). Ao passar do ciclo previsto, aparece "Pronta para colher".
-- **Diário:** cada hortaliça tem, dentro de `diario(...)`, uma linha com as datas de cada etapa (`semeadura`, `germinacao`, `primeirasFolhas`, `crescimento`, `apresentacao`). A data da semeadura, se ficar vazia (`''`), usa a data de plantio; a do "Dia da apresentação" usa a data da apresentação do projeto. Etapas sem data ou com data no futuro aparecem como "em breve".
+- **Diário:** cada hortaliça tem, dentro de `diario(...)`, uma linha com as datas de cada etapa (`semeadura`, `germinacao`, `primeirasFolhas`, `crescimento`). A data da semeadura, se ficar vazia (`''`), usa a data de plantio. Etapas sem data ou com data no futuro aparecem como "em breve".
 - **`urlBase`:** o endereço do site publicado, terminando em `/` (ex.: `'https://usuario.github.io/horta/'`). Os QR codes das plaquinhas só aparecem depois que ela é preenchida.
 - Textos entre `*asteriscos*` ficam em itálico.
 
@@ -54,7 +54,6 @@ public/fotos/alface/
   germinacao.jpg
   primeiras-folhas.jpg
   crescimento.jpg
-  apresentacao.jpg
   galeria-01.jpg        fotos da galeria (a lista está em dados.ts)
   galeria-02.jpg
   ...

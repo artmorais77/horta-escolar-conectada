@@ -16,12 +16,9 @@ export type Slug = 'alface' | 'coentro' | 'cebolinha'
 
 export interface Projeto {
   nome: string
-  integrantes: string[]
   disciplina: string
   curso: string
   instituicao: string
-  /** "DD/MM/AAAA" */
-  dataApresentacao: string
   /**
    * Endereço completo do site publicado, terminando em "/".
    * Ex.: "https://usuario.github.io/horta/". Usado nos QR codes das plaquinhas.
@@ -38,7 +35,7 @@ export interface ItemFicha {
 
 export interface EtapaDiario {
   titulo: string
-  /** "DD/MM/AAAA". Na semeadura, se ficar vazio, usa a data de plantio; no dia da apresentação, usa a data da apresentação. */
+  /** "DD/MM/AAAA". Na semeadura, se ficar vazio, usa a data de plantio. */
   data: string
   frase: string
   /** Nome do arquivo em public/fotos/<hortaliça>/ */
@@ -78,11 +75,9 @@ export interface Hortalica {
 
 export const projeto: Projeto = {
   nome: 'HORTA ESCOLAR CONECTADA',
-  integrantes: ['[NOMES DOS INTEGRANTES]'],
   disciplina: 'INTEGRAÇÃO, ENSINO, PRÁTICA E COMUNIDADE',
   curso: 'TECNOLOGIA EM GESTÃO DO AGRONEGÓCIO',
   instituicao: 'FACULDADE VALE DO AÇO - FAVALE',
-  dataApresentacao: '[DD/MM/AAAA]',
   urlBase: 'https://artmorais77.github.io/horta-escolar-conectada/',
 }
 
@@ -104,8 +99,6 @@ interface DatasDiario {
   germinacao: string
   primeirasFolhas: string
   crescimento: string
-  /** Vazia = usa a data da apresentação do projeto. */
-  apresentacao: string
 }
 
 function diario(datas: DatasDiario, frases: { primeirasFolhas: string; crescimento: string }): EtapaDiario[] {
@@ -114,7 +107,6 @@ function diario(datas: DatasDiario, frases: { primeirasFolhas: string; crescimen
     { titulo: 'Germinação', data: datas.germinacao, frase: 'Os primeiros brotos apareceram na terra.', foto: 'germinacao.jpg' },
     { titulo: 'Primeiras folhas', data: datas.primeirasFolhas, frase: frases.primeirasFolhas, foto: 'primeiras-folhas.jpg' },
     { titulo: 'Crescimento', data: datas.crescimento, frase: frases.crescimento, foto: 'crescimento.jpg' },
-    { titulo: 'Dia da apresentação', data: datas.apresentacao, frase: 'O resultado final do nosso cultivo.', foto: 'apresentacao.jpg', destaque: true },
   ]
 }
 
@@ -130,12 +122,12 @@ export const hortalicas: Hortalica[] = [
     familia: 'Família Asteraceae',
     origem:
       'Originária da Ásia, chegou ao Brasil com os portugueses no século 16. Os egípcios já a cultivavam por volta de 4.500 a.C.',
-    cicloDias: 45,
+    cicloDias: 60,
     dataPlantio: '[DD/MM/AAAA]',
     ficha: [
-      { icone: 'calendario', titulo: 'Ciclo', texto: '35 a 45 dias (mais curto no calor)' },
+      { icone: 'calendario', titulo: 'Ciclo', texto: '50 a 80 dias da semeadura à colheita (mais curto no calor)' },
       { icone: 'regua', titulo: 'Espaçamento', texto: '25 × 25 cm' },
-      { icone: 'gota', titulo: 'Rega', texto: 'Diária' },
+      { icone: 'gota', titulo: 'Rega', texto: 'Diária, 2 vezes ao dia: ao amanhecer e no fim da tarde, sem encharcar' },
       { icone: 'termometro', titulo: 'Temperatura', texto: 'Tolera de 6 a 30 °C; prefere clima ameno' },
       { icone: 'camadas', titulo: 'Solo', texto: 'Areno-argiloso, rico em matéria orgânica' },
     ],
@@ -149,7 +141,7 @@ export const hortalicas: Hortalica[] = [
     ],
     diario: diario(
       // Datas de cada etapa do diário ("DD/MM/AAAA")
-      { semeadura: '', germinacao: '[DD/MM/AAAA]', primeirasFolhas: '[DD/MM/AAAA]', crescimento: '[DD/MM/AAAA]', apresentacao: '' },
+      { semeadura: '', germinacao: '[DD/MM/AAAA]', primeirasFolhas: '[DD/MM/AAAA]', crescimento: '[DD/MM/AAAA]' },
       {
         primeirasFolhas: 'Surgiram as primeiras folhas verdadeiras.',
         crescimento: 'A planta ganhou volume e novas folhas.',
@@ -166,15 +158,15 @@ export const hortalicas: Hortalica[] = [
     cicloDias: 55,
     dataPlantio: '[DD/MM/AAAA]',
     ficha: [
-      { icone: 'calendario', titulo: 'Ciclo', texto: '40 a 55 dias para folhas (até 120 dias para sementes)' },
+      { icone: 'calendario', titulo: 'Ciclo', texto: '40 a 55 dias para folhas (cerca de 90 a 100 dias para sementes)' },
       { icone: 'sol', titulo: 'Clima', texto: 'Gosta de calor, acima de 25 °C' },
       { icone: 'camadas', titulo: 'Solo', texto: 'pH perto de 6,0' },
-      { icone: 'linhas', titulo: 'Semeadura', texto: 'Em linhas espaçadas de 20 cm' },
+      { icone: 'linhas', titulo: 'Semeadura', texto: 'Direta, com 25 cm entre linhas e 10 cm entre plantas' },
       { icone: 'escudo', titulo: 'Resistência', texto: 'Planta rústica, com poucas doenças' },
     ],
     nutricao: {
       introducao: 'Uma fonte de:',
-      selos: ['Ferro', 'Vitamina C', 'Provitamina A', 'Vitaminas do complexo B'],
+      selos: ['Ferro', 'Vitamina C', 'Provitamina A', 'Cálcio'],
     },
     voceSabia: [
       'O nome vem do grego *kóris*, que significa percevejo, por causa do aroma forte das folhas.',
@@ -182,7 +174,7 @@ export const hortalicas: Hortalica[] = [
     ],
     diario: diario(
       // Datas de cada etapa do diário ("DD/MM/AAAA")
-      { semeadura: '', germinacao: '[DD/MM/AAAA]', primeirasFolhas: '[DD/MM/AAAA]', crescimento: '[DD/MM/AAAA]', apresentacao: '' },
+      { semeadura: '', germinacao: '[DD/MM/AAAA]', primeirasFolhas: '[DD/MM/AAAA]', crescimento: '[DD/MM/AAAA]' },
       {
         primeirasFolhas: 'Surgiram as primeiras folhas verdadeiras.',
         crescimento: 'A planta ganhou volume e novas folhas.',
@@ -210,12 +202,12 @@ export const hortalicas: Hortalica[] = [
       frase: 'A cebolinha pode estimular o apetite e auxiliar na digestão.',
     },
     voceSabia: [
-      'Se for cortada a uns 2 cm do solo, ela rebrota e permite várias colheitas.',
+      'Se for cortada a uns 2 a 3 cm do solo, sem arrancar a base, ela rebrota e permite várias colheitas.',
       'As folhas são tubulares e a planta cresce em touceira.',
     ],
     diario: diario(
       // Datas de cada etapa do diário ("DD/MM/AAAA")
-      { semeadura: '', germinacao: '[DD/MM/AAAA]', primeirasFolhas: '[DD/MM/AAAA]', crescimento: '[DD/MM/AAAA]', apresentacao: '' },
+      { semeadura: '', germinacao: '[DD/MM/AAAA]', primeirasFolhas: '[DD/MM/AAAA]', crescimento: '[DD/MM/AAAA]' },
       {
         primeirasFolhas: 'Surgiram as primeiras folhas, finas e tubulares.',
         crescimento: 'A touceira ganhou volume e novas folhas.',

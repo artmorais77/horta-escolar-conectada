@@ -305,7 +305,10 @@ svg {
 .rodape__projeto {
   color: var(--texto);
   font-weight: 700;
-  margin-bottom: 4px;
+}
+
+.rodape__fontes {
+  margin-top: 10px;
 }
 
 /* ============================================================
@@ -497,6 +500,7 @@ svg {
 }
 
 .indicador {
+  container-type: inline-size;
   padding: 16px 14px;
   display: flex;
   flex-direction: column;
@@ -524,10 +528,14 @@ svg {
 .indicador__valor {
   font-family: var(--fonte-titulo);
   font-weight: 800;
-  font-size: clamp(20px, 5.6vw, 26px);
+  font-size: min(26px, 16cqi);
   white-space: nowrap;
   color: var(--titulo);
   line-height: 1.15;
+}
+
+.indicador__valor--vazio {
+  font-size: min(26px, 12.5cqi);
 }
 
 .progresso__topo {

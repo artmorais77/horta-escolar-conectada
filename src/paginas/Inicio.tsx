@@ -5,7 +5,7 @@ import { Icone } from '../componentes/Icones'
 import { Rodape } from '../componentes/Rodape'
 import { corTerra } from '../cores'
 import { caminhoFoto, hortalicas, objetivo, projeto, type Hortalica } from '../dados'
-import { calcularCultivo, formatarData, lerData, textoDias, useHoje, type Dia } from '../datas'
+import { calcularCultivo, lerData, textoDias, useHoje, type Dia } from '../datas'
 
 export function Inicio() {
   const hoje = useHoje()
@@ -31,26 +31,24 @@ export function Inicio() {
         <section className="card info" aria-label="Sobre o projeto">
           <dl>
             <div className="info__linha">
-              <Icone nome="pessoas" className="info__icone" />
-              <div>
-                <dt>Integrantes</dt>
-                <dd>{projeto.integrantes.join(', ')}</dd>
-              </div>
-            </div>
-            <div className="info__linha">
               <Icone nome="livro" className="info__icone" />
               <div>
-                <dt>Disciplina · Curso · Instituição</dt>
-                <dd>
-                  {projeto.disciplina} · {projeto.curso} · {projeto.instituicao}
-                </dd>
+                <dt>Disciplina</dt>
+                <dd>{projeto.disciplina}</dd>
               </div>
             </div>
             <div className="info__linha">
-              <Icone nome="calendario" className="info__icone" />
+              <Icone nome="capelo" className="info__icone" />
               <div>
-                <dt>Apresentação</dt>
-                <dd>{formatarData(lerData(projeto.dataApresentacao))}</dd>
+                <dt>Curso</dt>
+                <dd>{projeto.curso}</dd>
+              </div>
+            </div>
+            <div className="info__linha">
+              <Icone nome="predio" className="info__icone" />
+              <div>
+                <dt>Instituição</dt>
+                <dd>{projeto.instituicao}</dd>
               </div>
             </div>
           </dl>

@@ -19,12 +19,10 @@ export function PaginaHortalica({ hortalica: h }: { hortalica: Hortalica }) {
   const cultivo = calcularCultivo(plantio, hoje, h.cicloDias)
   const carregando = plantio !== null && hoje === null
 
-  const ultima = h.diario.length - 1
   const etapas: EtapaComData[] = h.diario.map((etapa, i) => {
     let dataLida = lerData(etapa.data)
-    // Datas que já existem em outro lugar não precisam ser repetidas.
+    // A semeadura sem data usa a data de plantio.
     if (!dataLida && i === 0) dataLida = plantio
-    if (!dataLida && i === ultima && etapa.destaque) dataLida = lerData(projeto.dataApresentacao)
     return { ...etapa, dataLida }
   })
 
@@ -62,7 +60,7 @@ export function PaginaHortalica({ hortalica: h }: { hortalica: Hortalica }) {
                 <Icone nome="calendario" tamanho={20} />
                 Plantio
               </span>
-              <span className="indicador__valor">{formatarData(plantio)}</span>
+              <span className={`indicador__valor${plantio ? '' : ' indicador__valor--vazio'}`}>{formatarData(plantio)}</span>
             </div>
             <div className="card indicador">
               <span className="indicador__rotulo">
