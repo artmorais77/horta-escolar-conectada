@@ -81,7 +81,7 @@ export const projeto: Projeto = {
   integrantes: ['[NOMES DOS INTEGRANTES]'],
   disciplina: 'INTEGRAÇÃO, ENSINO, PRÁTICA E COMUNIDADE',
   curso: 'TECNOLOGIA EM GESTÃO DO AGRONEGÓCIO',
-  instituicao: 'FACULDADE VALE DO AÇO',
+  instituicao: 'FACULDADE VALE DO AÇO - FAVALE',
   dataApresentacao: '[DD/MM/AAAA]',
   urlBase: 'https://artmorais77.github.io/horta-escolar-conectada/',
 }
