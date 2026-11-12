@@ -233,9 +233,20 @@ svg {
   padding: 36px 0 40px;
 }
 
+.rotulo {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 1px solid var(--borda);
+  color: var(--terra);
+}
+
 .cabecalho__titulo {
   font-size: clamp(38px, 10vw, 56px);
-  margin: 0 0 16px;
+  margin: 12px 0 16px;
 }
 
 .cabecalho__objetivo {

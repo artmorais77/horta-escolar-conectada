@@ -18,6 +18,9 @@ export function Inicio() {
       />
       <header className="cabecalho">
         <div className="conteudo">
+          <span className="rotulo" aria-hidden="true">
+            <Icone nome="broto" tamanho={26} />
+          </span>
           <h1 className="cabecalho__titulo">{projeto.nome}</h1>
           <p className="cabecalho__objetivo">{objetivo}</p>
         </div>
