@@ -1,6 +1,6 @@
 # Horta: alface, coentro e cebolinha
 
-Site do projeto de extensão que implantou uma horta na Escola Municipal Jurgleide Alves Sampaio (Açailândia, MA) com as turmas do 6º ano. O plantio foi em 10/11/2026. Cada canteiro tem uma plaquinha com QR code que abre a página daquela planta.
+Site do projeto que implantou uma horta na Escola Municipal Jurgleide Alves Sampaio (Açailândia, MA) com as turmas do 6º ano. O plantio foi em 10/11/2026. Cada canteiro tem uma plaquinha com QR code que abre a página daquela planta.
 
 Páginas geradas:
 

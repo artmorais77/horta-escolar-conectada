@@ -233,20 +233,9 @@ svg {
   padding: 36px 0 40px;
 }
 
-.rotulo {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--terra);
-  font-weight: 700;
-  font-size: 16px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
 .cabecalho__titulo {
   font-size: clamp(38px, 10vw, 56px);
-  margin: 12px 0 16px;
+  margin: 0 0 16px;
 }
 
 .cabecalho__objetivo {

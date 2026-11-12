@@ -13,15 +13,11 @@ export function Inicio() {
     <>
       <Cabeca
         titulo={`${projeto.nome}: alface, coentro e cebolinha`}
-        descricao="Projeto de extensão que implantou uma horta escolar com alface, coentro e cebolinha, plantadas pelos alunos em pneus e garrafas PET."
+        descricao="Horta escolar com alface, coentro e cebolinha, plantadas pelos alunos em pneus e garrafas PET."
         corTema={corTerra}
       />
       <header className="cabecalho">
         <div className="conteudo">
-          <p className="rotulo">
-            <Icone nome="broto" tamanho={20} />
-            Projeto de extensão
-          </p>
           <h1 className="cabecalho__titulo">{projeto.nome}</h1>
           <p className="cabecalho__objetivo">{objetivo}</p>
         </div>
@@ -56,7 +52,7 @@ export function Inicio() {
               <div>
                 <dt>Escola parceira</dt>
                 <dd>
-                  {projeto.escola}, turmas do {projeto.turmas}
+                  {projeto.escola}, TURMAS DO {projeto.turmas}
                 </dd>
               </div>
             </div>

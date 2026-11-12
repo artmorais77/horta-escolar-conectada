@@ -85,14 +85,14 @@ export const projeto: Projeto = {
   disciplina: 'INTEGRAÇÃO, ENSINO, PRÁTICA E COMUNIDADE',
   curso: 'TECNOLOGIA EM GESTÃO DO AGRONEGÓCIO',
   instituicao: 'FACULDADE VALE DO AÇO - FAVALE',
-  escola: 'Escola Municipal Jurgleide Alves Sampaio, Açailândia (MA)',
-  turmas: '6º ano A e B',
+  escola: 'ESCOLA MUNICIPAL JURGLEIDE ALVES SAMPAIO - AÇAILÂNDIA (MA)',
+  turmas: '6º ANO A E B',
   dataPlantio: '10/11/2026',
   urlBase: 'https://artmorais77.github.io/horta-escolar-conectada/',
 }
 
 export const objetivo =
-  'Projeto de extensão em que implantamos uma horta com as turmas do 6º ano, reaproveitando pneus e garrafas PET. Cada canteiro tem um QR code que leva à página da sua hortaliça, com fotos do plantio, ficha técnica e curiosidades.'
+  'Implantamos uma horta com as turmas do 6º ano, reaproveitando pneus e garrafas PET. Cada canteiro tem um QR code que leva à página da sua hortaliça, com fotos do plantio, ficha técnica e curiosidades.'
 
 export const fontes = 'Fontes: Embrapa Hortaliças, Embrapa Semiárido e artigos científicos'
 
