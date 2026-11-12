@@ -1,36 +1,24 @@
 import { Link } from 'react-router-dom'
-import { BarraProgresso } from '../componentes/BarraProgresso'
 import { BarraSuperior } from '../componentes/BarraSuperior'
 import { Cabeca } from '../componentes/Cabeca'
 import { FichaTecnica } from '../componentes/FichaTecnica'
 import { Foto } from '../componentes/Foto'
 import { Galeria } from '../componentes/Galeria'
 import { Icone } from '../componentes/Icones'
-import { LinhaDoTempo, type EtapaComData } from '../componentes/LinhaDoTempo'
 import { Rodape } from '../componentes/Rodape'
 import { Texto } from '../componentes/Texto'
 import { corDestaque } from '../cores'
 import { caminhoFoto, projeto, type Hortalica } from '../dados'
-import { calcularCultivo, formatarData, lerData, textoDias, useHoje } from '../datas'
+import { formatarData, lerData } from '../datas'
 
 export function PaginaHortalica({ hortalica: h }: { hortalica: Hortalica }) {
-  const hoje = useHoje()
-  const plantio = lerData(h.dataPlantio)
-  const cultivo = calcularCultivo(plantio, hoje, h.cicloDias)
-  const carregando = plantio !== null && hoje === null
-
-  const etapas: EtapaComData[] = h.diario.map((etapa, i) => {
-    let dataLida = lerData(etapa.data)
-    // A semeadura sem data usa a data de plantio.
-    if (!dataLida && i === 0) dataLida = plantio
-    return { ...etapa, dataLida }
-  })
+  const plantio = lerData(projeto.dataPlantio)
 
   return (
     <>
       <Cabeca
         titulo={`${h.nome} (${h.nomeCientifico}) · ${projeto.nome}`}
-        descricao={`Diário de cultivo, fotos, ficha técnica e curiosidades da ${h.nome.toLowerCase()} (${h.nomeCientifico}) do nosso projeto acadêmico.`}
+        descricao={`Fotos do plantio, ficha técnica e curiosidades da ${h.nome.toLowerCase()} (${h.nomeCientifico}) da horta escolar.`}
         corTema={corDestaque[h.slug]}
         hortalica={h.slug}
       />
@@ -40,7 +28,7 @@ export function PaginaHortalica({ hortalica: h }: { hortalica: Hortalica }) {
         <Foto
           className="capa"
           src={caminhoFoto(h.slug, h.fotos.capa)}
-          alt={`Vaso de ${h.nome.toLowerCase()} do projeto`}
+          alt={`Pé de ${h.nome.toLowerCase()}`}
           rotuloVazio={`Foto de capa: ${h.nome.toLowerCase()}`}
         />
 
@@ -54,7 +42,7 @@ export function PaginaHortalica({ hortalica: h }: { hortalica: Hortalica }) {
             <p className="apresentacao__origem">{h.origem}</p>
           </section>
 
-          <section className="indicadores" aria-label="Indicadores do cultivo">
+          <section className="indicadores" aria-label="Sobre o plantio">
             <div className="card indicador">
               <span className="indicador__rotulo">
                 <Icone nome="calendario" tamanho={20} />
@@ -64,19 +52,15 @@ export function PaginaHortalica({ hortalica: h }: { hortalica: Hortalica }) {
             </div>
             <div className="card indicador">
               <span className="indicador__rotulo">
-                <Icone nome="relogio" tamanho={20} />
-                Dias de cultivo
+                <Icone nome="broto" tamanho={20} />
+                Plantada com
               </span>
-              <span className="indicador__valor">{carregando ? '…' : textoDias(cultivo.dias)}</span>
-            </div>
-            <div className="card indicador indicador--largo">
-              <BarraProgresso cultivo={cultivo} cicloDias={h.cicloDias} carregando={carregando} />
+              <span className="indicador__valor">{h.formaPlantio}</span>
             </div>
           </section>
 
+          <Galeria titulo="Fotos do plantio" texto={h.plantio} fotos={h.fotos.galeria} />
           <FichaTecnica itens={h.ficha} />
-          <LinhaDoTempo slug={h.slug} nome={h.nome} etapas={etapas} hoje={hoje} />
-          <Galeria slug={h.slug} nome={h.nome} arquivos={h.fotos.galeria} />
 
           <section className="card bloco nutricao" aria-labelledby="nutricao-titulo">
             <h2 id="nutricao-titulo" className="bloco__titulo">

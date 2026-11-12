@@ -1,26 +1,26 @@
 import { Link } from 'react-router-dom'
 import { Cabeca } from '../componentes/Cabeca'
+import { ComoFoiOPlantio } from '../componentes/ComoFoiOPlantio'
 import { Foto } from '../componentes/Foto'
 import { Icone } from '../componentes/Icones'
 import { Rodape } from '../componentes/Rodape'
 import { corTerra } from '../cores'
 import { caminhoFoto, hortalicas, objetivo, projeto, type Hortalica } from '../dados'
-import { calcularCultivo, lerData, textoDias, useHoje, type Dia } from '../datas'
+import { formatarData, lerData } from '../datas'
 
 export function Inicio() {
-  const hoje = useHoje()
   return (
     <>
       <Cabeca
         titulo={`${projeto.nome}: alface, coentro e cebolinha`}
-        descricao="Projeto acadêmico que acompanha e documenta o cultivo de alface, coentro e cebolinha, do plantio até a apresentação."
+        descricao="Projeto de extensão que implantou uma horta escolar com alface, coentro e cebolinha, plantadas pelos alunos em pneus e garrafas PET."
         corTema={corTerra}
       />
       <header className="cabecalho">
         <div className="conteudo">
           <p className="rotulo">
             <Icone nome="broto" tamanho={20} />
-            Projeto acadêmico
+            Projeto de extensão
           </p>
           <h1 className="cabecalho__titulo">{projeto.nome}</h1>
           <p className="cabecalho__objetivo">{objetivo}</p>
@@ -51,6 +51,22 @@ export function Inicio() {
                 <dd>{projeto.instituicao}</dd>
               </div>
             </div>
+            <div className="info__linha">
+              <Icone nome="broto" className="info__icone" />
+              <div>
+                <dt>Escola parceira</dt>
+                <dd>
+                  {projeto.escola}, turmas do {projeto.turmas}
+                </dd>
+              </div>
+            </div>
+            <div className="info__linha">
+              <Icone nome="calendario" className="info__icone" />
+              <div>
+                <dt>Plantio</dt>
+                <dd>{formatarData(lerData(projeto.dataPlantio))}</dd>
+              </div>
+            </div>
           </dl>
         </section>
 
@@ -59,15 +75,17 @@ export function Inicio() {
           <ul className="cards-hortalicas">
             {hortalicas.map((h) => (
               <li key={h.slug}>
-                <CardHortalica hortalica={h} hoje={hoje} />
+                <CardHortalica hortalica={h} />
               </li>
             ))}
           </ul>
         </section>
 
+        <ComoFoiOPlantio />
+
         <aside className="aviso">
           <Icone nome="qrcode" className="aviso__icone" />
-          <p>Está ao lado de um vaso? Escaneie o QR code da plaquinha para abrir direto a página daquela hortaliça.</p>
+          <p>Está ao lado de um canteiro? Escaneie o QR code da plaquinha para abrir direto a página daquela hortaliça.</p>
         </aside>
       </main>
       <Rodape />
@@ -75,23 +93,20 @@ export function Inicio() {
   )
 }
 
-function CardHortalica({ hortalica: h, hoje }: { hortalica: Hortalica; hoje: Dia | null }) {
-  const plantio = lerData(h.dataPlantio)
-  const { dias } = calcularCultivo(plantio, hoje, h.cicloDias)
-  const rotulo = plantio && dias === null ? '… dias de cultivo' : `${textoDias(dias)} de cultivo`
+function CardHortalica({ hortalica: h }: { hortalica: Hortalica }) {
   return (
     <Link to={`/${h.slug}/`} className="card card-hortalica" data-hortalica={h.slug}>
       <Foto
         className="card-hortalica__foto"
         src={caminhoFoto(h.slug, h.fotos.capa)}
-        alt={`Vaso de ${h.nome.toLowerCase()} do projeto`}
+        alt={`Pé de ${h.nome.toLowerCase()}`}
         rotuloVazio={`Foto de capa: ${h.nome.toLowerCase()}`}
       />
       <div className="card-hortalica__corpo">
         <div>
           <h3 className="card-hortalica__nome">{h.nome}</h3>
           <p className="cientifico">{h.nomeCientifico}</p>
-          <span className="selo">{rotulo}</span>
+          <span className="selo">Plantada com {h.formaPlantio.toLowerCase()}</span>
         </div>
         <span className="botao-redondo" aria-hidden="true">
           <Icone nome="seta" />

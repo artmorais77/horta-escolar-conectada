@@ -1,15 +1,17 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { caminhoFoto, type Slug } from '../dados'
+import { caminhoFoto, type FotoPlantio } from '../dados'
 import { Foto } from './Foto'
 import { Icone } from './Icones'
 
 interface Props {
-  slug: Slug
-  nome: string
-  arquivos: string[]
+  titulo: string
+  /** Frase mostrada acima das fotos. */
+  texto?: string
+  fotos: FotoPlantio[]
 }
 
-export function Galeria({ slug, nome, arquivos }: Props) {
+export function Galeria({ titulo, texto, fotos }: Props) {
+  const arquivos = fotos.map((f) => f.arquivo)
   const [disponiveis, setDisponiveis] = useState<Record<string, boolean>>({})
   const [aberta, setAberta] = useState<number | null>(null)
   const dialogo = useRef<HTMLDialogElement>(null)
@@ -43,20 +45,20 @@ export function Galeria({ slug, nome, arquivos }: Props) {
   }, [])
 
   const atual = aberta !== null ? comFoto[aberta] : undefined
-  const legenda = atual ? `Foto ${arquivos.indexOf(atual) + 1} da galeria: ${nome}` : ''
+  const legenda = atual ? fotos[arquivos.indexOf(atual)].descricao : ''
 
   return (
     <section className="secao" aria-labelledby="galeria-titulo">
-      <h2 id="galeria-titulo">Galeria de fotos</h2>
+      <h2 id="galeria-titulo">{titulo}</h2>
+      {texto && <p className="galeria__texto">{texto}</p>}
       <ul className="galeria">
-        {arquivos.map((arquivo, i) => (
+        {fotos.map((foto, i) => (
           <ItemGaleria
-            key={arquivo}
-            slug={slug}
-            nome={nome}
-            arquivo={arquivo}
+            key={foto.arquivo}
+            arquivo={foto.arquivo}
+            descricao={foto.descricao}
             numero={i + 1}
-            disponivel={!!disponiveis[arquivo]}
+            disponivel={!!disponiveis[foto.arquivo]}
             marcar={marcar}
             abrir={abrir}
           />
@@ -78,7 +80,7 @@ export function Galeria({ slug, nome, arquivos }: Props) {
         }}
       >
         <div className="lightbox__palco">
-          {atual && <img src={caminhoFoto(slug, atual)} alt={legenda} />}
+          {atual && <img src={caminhoFoto('plantio', atual)} alt={legenda} />}
           <button type="button" className="lightbox__botao lightbox__fechar" onClick={fechar} aria-label="Fechar foto ampliada">
             <Icone nome="fechar" />
           </button>
@@ -99,16 +101,15 @@ export function Galeria({ slug, nome, arquivos }: Props) {
 }
 
 interface ItemProps {
-  slug: Slug
-  nome: string
   arquivo: string
+  descricao: string
   numero: number
   disponivel: boolean
   marcar: (arquivo: string, ok: boolean) => void
   abrir: (arquivo: string, botao: HTMLButtonElement) => void
 }
 
-function ItemGaleria({ slug, nome, arquivo, numero, disponivel, marcar, abrir }: ItemProps) {
+function ItemGaleria({ arquivo, descricao, numero, disponivel, marcar, abrir }: ItemProps) {
   const aoSaber = useCallback((ok: boolean) => marcar(arquivo, ok), [marcar, arquivo])
   return (
     <li>
@@ -116,10 +117,10 @@ function ItemGaleria({ slug, nome, arquivo, numero, disponivel, marcar, abrir }:
         type="button"
         className="galeria__botao"
         disabled={!disponivel}
-        aria-label={disponivel ? `Ampliar foto ${numero} da galeria` : `Foto ${numero} da galeria ainda não adicionada`}
+        aria-label={disponivel ? `Ampliar foto: ${descricao}` : `Foto ${numero} da galeria ainda não adicionada`}
         onClick={(e) => abrir(arquivo, e.currentTarget)}
       >
-        <Foto src={caminhoFoto(slug, arquivo)} alt={`Foto ${numero} da galeria: ${nome}`} rotuloVazio={`Foto ${numero}`} onDisponivel={aoSaber} />
+        <Foto src={caminhoFoto('plantio', arquivo)} alt={descricao} rotuloVazio={`Foto ${numero}`} onDisponivel={aoSaber} />
       </button>
     </li>
   )

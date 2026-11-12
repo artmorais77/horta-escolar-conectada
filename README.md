@@ -1,15 +1,15 @@
 # Horta: alface, coentro e cebolinha
 
-Site do projeto acadêmico que acompanha o cultivo de três hortaliças. Cada vaso tem uma plaquinha com QR code que abre a página daquela planta.
+Site do projeto de extensão que implantou uma horta na Escola Municipal Jurgleide Alves Sampaio (Açailândia, MA) com as turmas do 6º ano. O plantio foi em 10/11/2026. Cada canteiro tem uma plaquinha com QR code que abre a página daquela planta.
 
 Páginas geradas:
 
 | Endereço      | Conteúdo                                     |
 | ------------- | -------------------------------------------- |
-| `/`           | Página inicial com as três hortaliças        |
-| `/alface/`    | Diário, fotos e ficha técnica da alface      |
-| `/coentro/`   | Diário, fotos e ficha técnica do coentro     |
-| `/cebolinha/` | Diário, fotos e ficha técnica da cebolinha   |
+| `/`           | Página inicial, hortaliças e "Como foi o plantio" |
+| `/alface/`    | Fotos do plantio e ficha técnica da alface   |
+| `/coentro/`   | Fotos do plantio e ficha técnica do coentro  |
+| `/cebolinha/` | Fotos do plantio e ficha técnica da cebolinha |
 | `/placas/`    | Plaquinhas A5 com QR code, prontas para imprimir |
 
 Feito com React + TypeScript + Vite. O `vite-react-ssg` gera um `index.html` de verdade para cada endereço, então os links do QR code abrem direto no GitHub Pages, sem erro 404.
@@ -34,10 +34,9 @@ npm run preview # abre em http://localhost:4173/horta/
 
 **Tudo o que precisa ser preenchido fica em `src/dados.ts`.** Não é preciso mexer em mais nada.
 
-- **Projeto:** nome, disciplina, curso e instituição.
-- **Datas:** escrevam no formato `DD/MM/AAAA` (ex.: `'15/09/2026'`). Enquanto estiver `'[DD/MM/AAAA]'`, o site mostra o espaço reservado.
-- **`dataPlantio`** de cada hortaliça: com ela o site calcula sozinho os "dias de cultivo" e a barra de progresso (pelo horário de Brasília). Ao passar do ciclo previsto, aparece "Pronta para colher".
-- **Diário:** cada hortaliça tem, dentro de `diario(...)`, uma linha com as datas de cada etapa (`semeadura`, `germinacao`, `primeirasFolhas`, `crescimento`). A data da semeadura, se ficar vazia (`''`), usa a data de plantio. Etapas sem data ou com data no futuro aparecem como "em breve".
+- **Projeto:** nome, disciplina, curso, instituição, escola, turmas e data do plantio (`DD/MM/AAAA`).
+- **`etapasPlantio`:** as etapas da seção "Como foi o plantio" da página inicial, cada uma com título, texto e fotos.
+- **Cada hortaliça:** `formaPlantio` (sementes ou mudas), a frase `plantio` e a lista de fotos da `galeria`.
 - **`urlBase`:** o endereço do site publicado, terminando em `/` (ex.: `'https://usuario.github.io/horta/'`). Os QR codes das plaquinhas só aparecem depois que ela é preenchida.
 - Textos entre `*asteriscos*` ficam em itálico.
 
@@ -45,23 +44,10 @@ Depois de editar, salvem o arquivo. Com `npm run dev` aberto, a página atualiza
 
 ## Fotos
 
-Coloquem as fotos em `public/fotos/<hortaliça>/`, com estes nomes exatos (tudo minúsculo, `.jpg`):
+- **Fotos do plantio:** ficam em `public/fotos/plantio/`. Para usar uma foto, coloquem o arquivo lá e adicionem `{ arquivo: 'nome.jpg', descricao: '...' }` na galeria da hortaliça ou em uma etapa de `etapasPlantio`. A descrição é lida por leitores de tela e aparece na foto ampliada.
+- **Capa de cada hortaliça:** `public/fotos/<hortaliça>/capa.jpg`.
 
-```
-public/fotos/alface/
-  capa.jpg              foto do topo da página e do card da página inicial
-  semeadura.jpg
-  germinacao.jpg
-  primeiras-folhas.jpg
-  crescimento.jpg
-  galeria-01.jpg        fotos da galeria (a lista está em dados.ts)
-  galeria-02.jpg
-  ...
-```
-
-O mesmo vale para `coentro/` e `cebolinha/`. Enquanto uma foto não existir, aparece um espaço reservado com ícone de câmera, sem imagem quebrada.
-
-Dica: reduzam as fotos para no máximo uns 1600 px de largura antes de enviar, assim a página abre rápido no celular. Para mudar a quantidade de fotos da galeria, editem a lista `galeriaPadrao` em `dados.ts`.
+Enquanto uma foto não existir, aparece um espaço reservado com ícone de câmera, sem imagem quebrada. Os créditos estão em `public/fotos/CREDITOS.md`.
 
 ## Publicar no GitHub Pages
 
@@ -82,14 +68,15 @@ O endereço fica `https://<usuario>.github.io/<nome-do-repositorio>/`. O workflo
 ```
 src/
   dados.ts                 <- textos, datas e fotos (editem aqui)
-  datas.ts                 cálculos de datas (fuso America/Sao_Paulo)
+  datas.ts                 leitura e formatação de datas
   estilo.css               cores, fontes e layout
   rotas.tsx                endereços do site
   paginas/                 Inicio, PaginaHortalica, Placas, NaoEncontrada (404)
-  componentes/             LinhaDoTempo, FichaTecnica, Galeria, BarraProgresso, Foto, Placa...
+  componentes/             ComoFoiOPlantio, FichaTecnica, Galeria, Foto, Placa...
 public/
   favicon.svg
-  fotos/<hortaliça>/       fotos do cultivo
+  fotos/plantio/           fotos do dia do plantio
+  fotos/<hortaliça>/       capa de cada hortaliça
 ```
 
 Fontes do conteúdo: Embrapa Hortaliças, Embrapa Semiárido e artigos científicos.
